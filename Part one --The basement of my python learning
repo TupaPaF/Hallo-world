@@ -1,0 +1,514 @@
+	START ChAPTER			python 学习笔记：
+一、python之禅
+1.Beautiful is better than ugly.(优美胜于丑陋)
+2.Explicit is better than implicit.（明了胜于晦涩）
+3.Simple is better than comlex.（简介胜于复杂）
+4.Complex is better than complicated.（复杂胜于凌乱）
+5.Flat is better than nested.（扁平胜于嵌套）
+6.Sparse is better than dense.（宽松胜于紧凑）
+7.Readability counts.（可读性很重要）
+8.Special cases aren't special enough to break the rules.（即便是特例，也不可违背这些规则）
+9.Although practicality beats purity.（）
+10.Errors should never pass silently.（）
+11.（通常只有唯一一种是最佳的解决方案）
+12.（做比不做好，但不假思索就动手还不如不做）
+二、python学习的相关网站
+1.python标准库 ：https：//docs.python.org/3/library/index.html
+2.Python HOWTO: https：//docs.python.org/3/howto/index.html
+3.Python教程：https：//docs.python.org/3/tutorial/index.html
+4.PEP规范 ：https：//docs.python.org/dev/prps/
+
+ * 注释的使用 ：三个单引号或三个双引号 ！
+				单行注释用 # 。
+				
+	    	第一个python 程序
+print(' hallo world !')
+1. print 函数：
+	print(*objects, sep = '',end = '',file = sys.stdout, flush=false)
+print 函数有五个参数 ： 
+ （1）*objects 是可变长度的对象参数；
+ （2）sep是分隔符参数，默认值是一个空格；
+ （3）end 是输出字符串后的结束符号，默认值是换行符；
+ （4）file 是输出文件参数，，默认值是sys.stdout 标准输出，即控制台；
+ （5）flush 为是否刷新文件输出流缓冲区，如果刷新字符串会马上打印输出，默认值是不刷新。
+
+
+       四、       Python语法基础
+4.1 标识符 关键字
+标识符的命名规范：
+（1）Name 与 name 是不同的两个标识符；
+（2）首字符不能是 数字 ，与c语言相同；
+（3）首字符之外的字符是 '——' ， 字母 ， 数字 ；
+（4）关键字 不能做标识符；
+（5）python内置函数名，不可做标识符；
+
+关键字：
+False None True 唯三的首字母大写的关键字
+and as def del elif else except if import in is lambda raise
+return try while with ～～～
+
+4.2 常量和变量
+（1）变量 ：python中的变量无须指定其数据类型，只要是给标识符赋值即可构成变量。
+（2）常量 ：python中无常量概念，指定的标识符之后不在修改即可当作常量。无意的修改需要程序员自查  ！
+
+4.3 注释
+  单行注释 ： '# ' （# + 一个空格 ）
+  多行注释 ： 三个单引号
+  MacOS系统中的注释快捷键 ： command + /
+
+4.4 语句
+  python的单行语句不需要分号结尾  ps ：单行多语句时 需要分号分割开。
+  在if，while，for 语句中 通过缩进区分语句块
+  ps： Tab键的使用
+        不同的编译器下Tab键所代表的空格数不同，慎用 ！ 推荐用四个空格代替Tab键 。
+
+4.5 模块
+    python中的模块即为一个.py文件。
+（1）模块的使用
+    现有模块
+      first.py
+        a=1
+        b=2
+        c=3
+        print('first.py is done !')
+
+    a：用法一：
+    输入 import first
+        print(first.a)
+	输出
+	/Users/tufeifei/PycharmProjects/untitled/venv/bin/python "/Users/tufeifei/Desktop/python学习/python 笔记.py"
+    first.py is done !
+    1
+
+    Process finished with exit code 0
+    b：用法二：
+    输入 from first import a
+         print(a)
+	输出
+    /Users/tufeifei/PycharmProjects/untitled/venv/bin/python "/Users/tufeifei/Desktop/python学习/python 笔记.py"
+    first.py is done !
+    1
+
+    Process finished with exit code 0
+    c ；综合使用 ：
+    输入 import first
+        from first import b
+        a = 99
+        print(a)                 访问当前模块中的 a
+        print(first.a)           访问first模块中的 a
+        print(b)                 访问first中的 b
+    输出
+    /Users/tufeifei/PycharmProjects/untitled/venv/bin/python "/Users/tufeifei/Desktop/python学习/python 笔记.py"
+    first.py is done !
+    99
+    1
+    2
+    PS ： 若当前模块中有变量 a ，则 import first ，中的变量 a 无法访问
+
+4.6 包 （package)
+    包 即为模块的集合
+        在不同的包中可以存在相同模块名的模块。
+（1）包的创建：
+    在文件列表中右键 选择 python package
+    命名为 小写字母 例如：com.pkg1 ---创建了com文件夹下pkg1文件夹 。
+        其中会有_init_.py 文件 ，表示该文件夹是python的一个包，非普通文件夹。
+（2）导入方法 ：
+    现有包 com.pkg1 和 com.pkg2 中都有 hello.py
+	    com.pkg2.hello
+	       y = True
+	       z = 10.10
+	       print('进入 com.pkg2.hello模块'）
+	     com.pkg1.hello
+	       import com.pkg2.hello as module1         因为com.pkg1.hello和com.pkg2.hello 模块名冲突 as 新模块名 为com.pkg2.hello的别名
+	       from com.pkg2.hello import a
+	       y = 20
+	       print（y）                                访问当前模块y
+	       print（module1.y)                         访问com.pkg2.hello 中的y
+	       print(a)                                  访问com.pkg2.hello 中的a'''
+"""TODO的使用 存在疑问 ！！！！！！！！！！！！！！
+a = 1
+b = 2
+# TODO（tufeifei）：怎么用
+print(a,b)
+"""
+
+
+         五、   Python编码规范 
+5.1 命名规范 
+5.2 注释规范
+5.3 导入规范
+        一个导入语句只导入一个模块
+        from XXX  import XXX，XXX，XXX 是可以的
+        导入顺序 标准库——第三方库——自己的模块
+5.4 代码排版
+    （1）空行：   import语句块前后保留两个空行
+                  函数声明之前保留两个空行
+                  类声明之前保留留两个空行 
+                  方法声明之前保留一个空行
+                  两个逻辑代码块之间应该保留一个空行
+    （2）空格：    赋值符号"="前后一个空格
+                  所有二元运算符都应该用空格隔开
+                  一元运算符：算法运算符取反 '-' 和 运算符取反'～'   ： b = 10；a = -b； y = ～b ；
+                  括号中不要有空格
+                  逗号、分号、冒号前面不要有空格，其之后应该有空格 。
+                  参数列表、索引或切片的左括号前不应该有空格 。
+    （3）缩进：   不推荐使用TAB键进行缩进
+    （4）断行：   
+                在逗号后断行；
+                在运算符前断行；
+                ' \ '断行符；（在括号中续行是隐式的）
+                
+                
+                数据类型                                                                                                 2019.1.26
+6.1 数字类型
+        整数类型 （区别c语言：整型、长整型合并不区分）
+            二进制0b/0B 、八进制0o/0O 、十六进制0x/0X 、bool型 
+            bool（）：可将任何形式的值转化为True/False。
+        浮点类型 （float，python只支持双精度浮点类型）
+        复数类型 （complex，eg 1+2j）  : print('(1+2j) + (3+4j) = ',(1+2j) + (3+4j))
+6.2 数字类型的相互转换
+        隐式类型转换（编译器自动转换）：   bool ➕ int = int
+                                       bool/int ➕ float = float
+        显式类型转换（手动转换）： int() , float() , bool().
+                理论上可对任何类型的数据进行以上转换操作。
+            输入 ： print(int(9.3),float(4),bool(3j))
+            输出 ： 9 4.0 True
+                         
+6.3 字符串类型
+    （1）字符串的表示方式 ：
+        普通字符串：单引号或双引号包起来的字符串。
+            输入：print（'哈哈哈'）
+            输出：哈哈哈
+        原始字符串：（raw string）普通字符串前加r，将字符串中的特殊字符原样输出。
+            输入：print（r'哈哈哈/n哈哈哈'）
+            输出：哈哈哈/n哈哈哈
+        长字符串：用三重单引号或三重双引号包裹起来的，带有缩进换行等排版的字符串。
+            输入 ：print("""哈哈哈哈哈
+                            我是
+                            你爸爸""")
+            输出 ：哈哈哈哈哈
+                    我是
+                    你爸爸
+    (2) 字符串的格式化 ：
+            format（）函数的使用：   
+             输入    
+                    one = '第一个{}'
+                    two = '第二个{}'
+                    a = '{0} 是第一个占位符，{1}是第二个占位符。以此类推。'.format(one,two)
+                    print(a)
+            输出   
+                    第一个{} 是第一个占位符，第二个{}是第二个占位符。以此类推。
+            
+            输入 
+                    a = 1
+                    b = 2.0
+                    print('{1:.2e}是科学计数法表示的b，{0:.3f}是浮点类型的a'.format(a,b))
+            输出 
+                    2.00e+00是科学计数法表示的b，1.000是浮点类型的a
+            输入      
+                    a = 28
+                    print('{0:d}是十进制表示，{0:o} 是八进制表示，{0:x} 是十六进制表示'.format(a))
+            输出      
+                    28是十进制表示，34 是八进制表示，1c 是十六进制表示
+        **  字符串格式化控制符：
+                s     字符串格式化
+                d     十进制整数
+                f、F  十进制浮点数
+                g、G  十进制整数或浮点数
+                e、E  科学计数法表示
+                b     二进制
+                d     十进制
+                o     八进制
+                x、X  十六进制，x是小写表示，X是大写表示。
+            输出数字格式的控制 ：
+                 {1:2.3f} : 表示一个 两位整数部分，三位小数部分的十进制浮点数。
+                 {0:x < 6}: 表示 数字右边补6个x。
+                 {0:a > 4}: 表示 数字左边补4个a。
+                 {0:+ f}:   表示 带符号输出数字。
+                 {0:3.4%}:  表示 3位整数4位小数的百分制输出。
+        **
+    （3） 字符串的查找 ：
+          返回第一个所查找的字符的位置下标，找不到返-1。
+          str.find  : 从左往右找
+          str.rfind ： 从右往左找
+            输入 ：  string = 'halounihiafsf'
+                    print(string.find('a'))
+                    print(string.rfind('a'))
+            输出 ：  1
+                    9         
+            输入 ：  string = '012345y789'
+                    string.find('g')
+                    string.rfind('g')
+            输出 ： 6
+                   6
+                    原因：string中只一处'g'，所以find，rfind返回值相同。
+    （4） 字符串与数字的相互转换
+            字符串转换为数字：  int()  float() , 结果有可能失败 ！ 
+                输入 ：
+                    print(float(9))         区别数据类型转换和字符
+                    print(float('9'))       串与数字类型转换
+                    print(int('ABC',16))
+                    print(int('A',16))
+                    print(int('10',8))
+                输出 ：
+                    9.0
+                    9.0
+                    2748
+                    10
+                    8
+            数字转换为字符串：  str() ，该函数什么类型都能转换成字符串类型，但不能格式化
+                输入 ：
+                    print(str({34}))
+                    print(str(【34】)）
+                输出 ：
+                    {34}
+                    【34】
+
+    七、  运算符
+7.1 算术运算符
+        一元运算符 ： 取反（-）
+        二元运算符 ： +、-、*、/、%、**、//
+            +、* 可对字符串进行操作，其他不行。
+            输入： 'hallo' + '你好' 
+                  'hallo' * 2 
+            输出： hallo你好
+                  hallohallo
+7.2 关系运算符
+        ==、!=、>、<、>=、<=
+        字符串也可以用关系运算符操作
+        输入： a = 'hallo'
+              b = 'hallo'
+              print(a == b)
+        输出： True
+7.3 逻辑运算符
+        not、and、or；（非且或）对bool值运算，结果也是bool值。
+        输入： a = 1
+              b = 2
+              print(a and b == 1)
+        输出： False
+        输入：
+            a = 1
+            b = 2
+            def f1():           //定义函数def
+            print('---f1---')
+            return a == b
+            def f2():
+            print('---f2---')
+            return a < b
+            print(f1(),f2())
+        输出：
+            ---f1---
+            ---f2---
+            False True
+7.4 位运算符
+        &（位与：全1为1）、|（位或：有1为1）、^（位异或：相反为1）、~（位反）、>>（右移）、<<（左移）
+        输入：a = 0b10110010   //178
+             b = 0b01011110   //94
+             c = a | b
+             d = a & b
+             e = a ^ b
+             f = ~a
+             g = a << 2
+             h = a >> 2
+             print('A ：{0:b}'.format(a))
+             print('B ：{0:b}'.format(b))
+             print('或：{0:b}'.format(c))
+             print('与：{0:b}'.format(d))
+             print('异：{0:b}'.format(e))
+             print('非：{0:b}'.format(f))
+             print('A ：{0:b}'.format(a))
+             print('左：{0:b}'.format(g))
+             print('A ：{0:b}'.format(a))
+             print('右：{0:b}'.format(h))
+        输出：A ：10110010
+             B ：1011110
+             或：11111110
+             与：10010
+             异：11101100
+             非：-10110011
+             A ：10110010
+             左：1011001000
+             A ：10110010
+             右：101100
+7.5 赋值运算符
+        赋值运算符是一种简写，用于对变量本身的操作。
+        +=、—=、*=、/=、%=、**=、//=、&=、|=、^=、<<=、>>=
+7.6 其他运算符
+     （1）同一性测试运算符：is 、is not
+        is/is not 与 ==/！=的区别 ：
+            ==是测试两个对象的内容是否相同。
+            is是测试两个对象的地址是否相同。
+     （2）成员测试符号：in 、 not in
+            测试一个集合或一个序列中某元素是否存在。
+        输入 ：
+                string = 'hallo world !'
+                print('a' in string)
+                print('b' in string)
+                print('c' not in string）
+        输出 ：
+                True
+                False
+                True
+            
+7.7 运算符优先级
+     算术运算符 > 位运算符 > 关系运算符 > 逻辑运算符 > 赋值运算符
+     
+             
+     八、      控制语句                                                                                                   2019.01.29
+8.1 分支语句：
+    （1） if结构 
+            if 条件 ：
+                语句组
+        输入：score =int(input('SCORE :'))
+             if score >= 85:
+                print('very good !')
+             if score < 60:
+                print('that is not ok !')
+             if ( score >= 60 ) and (score < 85):
+                print('that is ok !')
+        输出：SCORE :65
+             that is ok !
+    （2） if-else结构
+            if 条件：
+                语句组1
+            else：
+                语句组2
+    （3） elif结构
+            if 条件1：
+                语句组1
+            elif 条件2：
+                语句组2
+            elif 条件3：
+             - - - - - -
+            elif 条件n：
+                语句块n
+            else ：
+                语句块n+1
+        输入 ：
+        score =int(input('SCORE :'))
+        if score < 60 :
+          print('no及格')
+        elif score == 60 :
+            print('及格')
+        elif (score > 60) and (score <=85) :
+           print('that is ok !')
+        elif score > 85 :
+           print('good !')
+        else:
+            print('Error ')
+    （4）三元运算符替代品--条件表达式
+          表达式1 if 条件 else 表达式2
+        输入 ：
+        score = int(input('score : '))
+        result = 'good' if score >=60 else 'no good'
+        print(result)
+        输出 ：
+        score :34
+        no good
+8.2 循环语句：
+    （1）while语句
+            while 循环条件：
+                语句组
+        输入：
+            i = 0
+            while i ** 2 < 100_000:          # '_' 用于提高数字可读性：1000000=100_000_0
+                i += 1
+            print("i = {0}".format(i))
+            print("i * i = %d" % (i * i))
+        输出：
+            i = 317
+            i * i = 100489
+    （2）for语句                            #与c语言中的for语句不同，python中的for语句只用于序列中。（序列包括字符串、列表、元组）
+            for 迭代变量 in 序列：
+                语句组
+        输入：for i in range(1,20):             for i in 'hallo':              number = [12,23,34,45,56]
+                print("{0}".format(i))              print('i')                for i in number :
+        输出：                                                                     print('i')
+             1                                 h                              12
+             2                                 a                              23
+             3                                 l                              34
+             4                                 l                              45
+             5                                 o                              56
+             6
+             7
+             8
+             9
+             10
+             11
+             12
+             13
+             14
+             15
+             16
+             17
+             18
+             19
+8.3 跳转语句：
+    （1）break语句： 强制结束循环
+    （2）continue语句：跳过循环中还未执行的语句，回到判断条件继续循环操作。
+    （3）while和for中的else语句：
+            这里else是在正常循环结束后执行的代码块，当循环中断结束时不执行。（break、return、和异常抛出都属于中断结束循环）
+    输入：
+    i = 0
+    for a in range(10):
+        if a == 4:
+            continue
+        print(a)
+    else:
+        print('continue Over !')
+    print('---------------')
+    while i * i < 10 :
+        i += 1
+        print('{0} * {0} = {1}'.format(i,i * i))
+    else:
+        print('while Over !')
+    print('---------------')
+    for item in range(1,10):
+        if item == 3:
+            break
+       print('Count is : {0}'.format(item))
+    else:
+       print('for1 Over !')
+    输出：
+    0
+    1
+    2
+    3
+    5
+    6
+    7
+    8
+    9
+    continue
+    Over !
+    ---------------
+    1 * 1 = 1
+    2 * 2 = 4
+    3 * 3 = 9
+    4 * 4 = 16
+    while Over !
+    ---------------
+    Count is: 1
+    Count is: 2
+    （4）范围函数 range（）
+        range([start],stop[,step])
+            start:起始值、stop:结束值、step:步长
+        step 可以小于零，创造递减序列。
+    输入：
+        for item in range(1,10,2):
+            print("count is : {0}".format(item))
+        print('------------------')
+        for item in range(1,-10,-3):
+            print("count is : {0}".format(item))
+    输出：
+        count is : 1
+        count is : 3
+        count is : 5
+        count is : 7
+        count is : 9
+        ------------------
+        count is : 1
+        count is : -2
+        count is : -5
+        count is : -8
+                                                                                                                        2019.1.29
